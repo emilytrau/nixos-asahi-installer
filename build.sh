@@ -17,6 +17,8 @@ PACKAGE="$PWD/package"
 RELEASES="$PWD/releases"
 RELEASES_DEV="$PWD/releases-dev"
 
+NIXOS_FETCHER="$PWD/nixos-fetcher"
+
 rm -rf "$PACKAGE"
 
 mkdir -p "$DL" "$PACKAGE" "$RELEASES" "$RELEASES_DEV"
@@ -47,12 +49,20 @@ echo "Building m1n1..."
 
 make -C "$M1N1" RELEASE=1 CHAINLOADING=1 -j4
 
+echo "Building nixos-fetcher"
+
+cd "$NIXOS_FETCHER"
+go install
+env GOOS=darwin GOARCH=arm64 go build
+
 echo "Copying files..."
 
 cp -r "$SRC"/* "$PACKAGE/"
 cp "$NIXOS_ICONS_ICNS" "$PACKAGE/logo.icns"
 mkdir -p "$PACKAGE/boot"
 cp "$M1N1/build/m1n1.bin" "$PACKAGE/boot"
+
+cp "$NIXOS_FETCHER/nixos-fetcher" "$PACKAGE/bin"
 
 echo "Extracting Python framework..."
 

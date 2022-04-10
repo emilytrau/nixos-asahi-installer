@@ -23,12 +23,15 @@ in
 pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
     bashInteractive
+    git
+    wget
     dtc
     imagemagick
     pkgsCross.aarch64-multiplatform.buildPackages.gcc
     rustenv
     p7zip
     cpio
+    go_1_17
   ];
 
   ARCH = "aarch64-unknown-linux-gnu-";

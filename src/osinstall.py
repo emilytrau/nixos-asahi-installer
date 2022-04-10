@@ -31,7 +31,23 @@ class OSInstaller(PackageInstaller):
     def align(self, v):
         return align_up(v, self.PART_ALIGNMENT)
 
+    def load_package_nixos(self):
+        job = self.template.get("hydra_job", None)
+        if not job:
+            return
+        
+        try:
+            p_progress("Downloading OS package info...")
+            subprocess.run(["nixos-fetcher", job, "nixos.iso"], check=True)
+        except subprocess.CalledProcessError as e:
+            p_error("Failed to fetch NixOS image. Please try again later.")
+            raise e
+        self.flush_progress()
+        logging.info(f"OS package opened")
+
     def load_package(self):
+        return self.load_package_nixos()
+
         package = self.template.get("package", None)
         if not package:
             return

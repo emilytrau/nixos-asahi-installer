@@ -5,7 +5,7 @@
             "default_os_name": "NixOS",
             "boot_object": "m1n1.bin",
             "next_object": "m1n1/boot.bin",
-            "hydra_job": "asahi-plasma-20220321-1.zip",
+            "hydra_job": "nixos/unstable-small/nixos.iso_minimal.x86_64-linux",
             "supported_fw": ["12.3"],
             "partitions": [
                 {
@@ -53,13 +53,6 @@
                     "image": "root.img"
                 }
             ]
-        },
-        {
-            "name": "Tethered boot (m1n1, for development)",
-            "default_os_name": "m1n1 proxy",
-            "expert": true,
-            "boot_object": "m1n1.bin",
-            "partitions": []
         }
     ]
 }

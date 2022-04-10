@@ -5,3 +5,4 @@ installer*.tar.gz
 latest
 *.ipsw
 result
+nixos-fetcher/nixos-fetcher
